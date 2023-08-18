@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import { config } from './config/config.js';
 import Logging from './lib/Logging.js';
 import videoRouter from './routers/Video.js';
+import commentRouter from './routers/Comment.js';
 
 const app = express();
 Logging.info(config.mongodb.uri)
@@ -13,6 +14,7 @@ mongoose
     .catch((error) => { Logging.error('Failed connecting to MongoDB'); Logging.error(error) })
 
 function startServer() {
+    /** Request Logger */
     app.use((req, res, next) => {
         Logging.info(`[REQUEST] -> Method: [${req.method}] -> Url: [${req.url}] -> IP: [${req.socket.remoteAddress}]`)
 
@@ -23,11 +25,13 @@ function startServer() {
         next()
     })
 
+    /** API Rules */
     app.use(express.urlencoded({ extended: true }))
     app.use(express.json())
 
-    /** Routes */
+    /** Router */
     app.use('/video', videoRouter)
+    app.use('/comment', commentRouter)
 
     /** Ping */
     app.get('/ping', (req, res) => res.status(200).json({ message: 'Yoo, whats up!' }))
@@ -37,6 +41,7 @@ function startServer() {
         res.status(404).json({ error: 'Not Found' });
     });
 
+    /** Create Server */
     const port = config.server.port
     http.createServer(app)
         .listen(port, () => { Logging.info(`Server running at PORT ${port}`) })

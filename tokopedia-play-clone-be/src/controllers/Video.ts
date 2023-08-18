@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import mongoose from "mongoose";
 import Video from "../models/Video.js";
-import Logging from "../lib/Logging.js";
 
 const createVideo = async (req: Request, res: Response, next: NextFunction) => {
     const { title, video_url, thumbnail_url } = req.body
