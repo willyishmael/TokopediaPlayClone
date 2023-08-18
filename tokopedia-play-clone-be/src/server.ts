@@ -5,9 +5,10 @@ import { config } from './config/config.js';
 import Logging from './lib/Logging.js';
 import videoRouter from './routers/Video.js';
 import commentRouter from './routers/Comment.js';
+import productRouter from './routers/Product.js';
 
 const app = express();
-Logging.info(config.mongodb.uri)
+
 mongoose
     .connect(config.mongodb.uri)
     .then(() => { Logging.info('Connected to MongoDB'); startServer(); })
@@ -32,6 +33,7 @@ function startServer() {
     /** Router */
     app.use('/video', videoRouter)
     app.use('/comment', commentRouter)
+    app.use('/product', productRouter)
 
     /** Ping */
     app.get('/ping', (req, res) => res.status(200).json({ message: 'Yoo, whats up!' }))
