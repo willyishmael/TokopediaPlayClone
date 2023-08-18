@@ -3,7 +3,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import { config } from './config/config.js';
 import Logging from './lib/Logging.js';
-import router from './routers/router.js';
+import videoRouter from './routers/Video.js';
 
 const app = express();
 Logging.info(config.mongodb.uri)
@@ -27,7 +27,7 @@ function startServer() {
     app.use(express.json())
 
     /** Routes */
-    app.use(router)
+    app.use('/video', videoRouter)
 
     /** Ping */
     app.get('/ping', (req, res) => res.status(200).json({ message: 'Yoo, whats up!' }))
@@ -39,6 +39,6 @@ function startServer() {
 
     const port = config.server.port
     http.createServer(app)
-        .listen(port, () => { Logging.info(`Server running on PORT ${port}`) })
+        .listen(port, () => { Logging.info(`Server running at PORT ${port}`) })
         .on('error', (error) => { Logging.error(error) })
 }
