@@ -1,8 +1,29 @@
 # Tokopedia Play Clone (Back-End)
 
 ## Installation
+- Install project `npm install`
+- Create `.env` file, see `.env.example`
+- Build the project `npm run build`
+- Start the server `npm start`
 
-## API Structure
+## Database Structure
+Document:
+- video
+  - _id
+  - video_url: string
+  - thumbnail_url: string
+  - title: string
+- product
+  - _id
+  - video: string (ref: video)
+  - image_url: string
+  - price: number
+- comment
+  - _id
+  - video: string (ref: video)
+  - username: string
+  - content: string
+## List API Request
 Endpoints for Video:
 - GET all video `/video`
 - GET video by Id `/video/:videoId`
