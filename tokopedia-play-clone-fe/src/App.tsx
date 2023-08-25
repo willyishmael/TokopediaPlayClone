@@ -1,14 +1,15 @@
+import Home from "./pages/Home";
 import React from "react";
 import { Routes, Route } from "react-router-dom"
 
 function AppRouter() {
     return (
         <Routes>
-            
+            <Route path="/" Component={Home} />
         </Routes>
     )
 }
-function App() {
+export default function App() {
     return (
         <div className="root">
             {/* <Header /> */}
@@ -21,5 +22,3 @@ function App() {
         </div>
     )
 }
-
-export default App;
