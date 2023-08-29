@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {},
+    colors: {
+      'teal-dark': '#1f2f36',
+    }
   },
   plugins: [],
 }
