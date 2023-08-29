@@ -6,6 +6,7 @@ import Logging from './lib/Logging.js';
 import videoRouter from './routers/Video.js';
 import commentRouter from './routers/Comment.js';
 import productRouter from './routers/Product.js';
+import cors from 'cors';
 
 const app = express();
 
@@ -15,6 +16,14 @@ mongoose
     .catch((error) => { Logging.error('Failed connecting to MongoDB'); Logging.error(error) })
 
 function startServer() {
+    /** Middleware */
+    app.use(cors({
+        origin: 'http://localhost:5173',
+        methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
+        allowedHeaders: ['Content-Type'],
+        credentials: true
+    }))
+
     /** Request Logger */
     app.use((req, res, next) => {
         Logging.info(`[REQUEST] -> Method: [${req.method}] -> Url: [${req.url}] -> IP: [${req.socket.remoteAddress}]`)
