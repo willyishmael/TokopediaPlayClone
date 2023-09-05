@@ -7,6 +7,7 @@ import videoRouter from './routers/Video.js';
 import commentRouter from './routers/Comment.js';
 import productRouter from './routers/Product.js';
 import cors from 'cors';
+import { errorHandler } from './middlewares/ErrorHandler.js';
 
 const app = express();
 
@@ -40,16 +41,17 @@ function startServer() {
     app.use(express.json())
 
     /** Router */
-    app.use('/video', videoRouter)
-    app.use('/comment', commentRouter)
-    app.use('/product', productRouter)
+    app.use('/video', videoRouter, errorHandler)
+    app.use('/comment', commentRouter, errorHandler)
+    app.use('/product', productRouter, errorHandler)
 
     /** Ping */
     app.get('/ping', (req, res) => res.status(200).json({ message: 'Yoo, whats up!' }))
 
     /** Error Handling */
     app.use((req, res) => {
-        res.status(404).json({ error: 'Not Found' });
+        Logging.error(`[${req.method}] [${req.url}] Request not available`)
+        res.status(404).json({ error: 'Request not available' });
     });
 
     /** Create Server */
