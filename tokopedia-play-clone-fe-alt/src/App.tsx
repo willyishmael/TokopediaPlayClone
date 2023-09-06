@@ -12,7 +12,6 @@ function AppRouter() {
         <Route path='/video/:videoId' Component={DetailVideo} />
       </Routes>
     </Router>
-
   )
 }
 
