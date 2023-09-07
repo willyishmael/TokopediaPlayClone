@@ -12,38 +12,44 @@ const createProduct = async (req: Request, res: Response, next: NextFunction) =>
 
     return await product
         .save()
-        .then((product) => res.status(201).json({ product }))
-        .catch((error) => res.status(500).json({ error }))
+        .then((product) => res.status(201).json({ message: `Created`, data: product }))
+        .catch((error) => next(error))
 }
 
 const readProduct = async (req: Request, res: Response, next: NextFunction) => {
-    const productId = req.params.productId
+    const { productId } = req.params
 
     return await Product.findById(productId)
-        .then((product) => (product ? res.status(201).json({ product }) : res.status(404).json({ message: "Not found" })))
-        .catch((error) => res.status(500).json({ error }))
+        .then((product) => product
+            ? res.status(201).json({ data: product })
+            : res.status(404).json({ error: "Not found" }))
+        .catch((error) => next(error))
 }
 
 const readAllProduct = async (req: Request, res: Response, next: NextFunction) => {
     return await Product.find()
-        .then((products) => res.status(201).json({ products }))
-        .catch((error) => res.status(500).json({ error }))
+        .then((products) => res.status(201).json({ data: products }))
+        .catch((error) => next(error))
 }
 
 const updateProduct = async (req: Request, res: Response, next: NextFunction) => {
-    const productId = req.params.productId
+    const { productId } = req.params
 
     return await Product.findByIdAndUpdate(productId, req.body)
-        .then((product) => (product ? res.status(201).json({ message: 'Updated', data: product }) : res.status(404).json({ message: "Not found" })))
-        .catch((error) => res.status(500).json({ error }))
+        .then((product) => product
+            ? res.status(201).json({ message: 'Updated', data: product })
+            : res.status(404).json({ error: "Not found" }))
+        .catch((error) => next(error))
 }
 
-const deleteProduct = async (req: Request, res: Response, next: NextFunction) => { 
-    const productId = req.params.productId
+const deleteProduct = async (req: Request, res: Response, next: NextFunction) => {
+    const { productId } = req.params
 
     return await Product.findByIdAndDelete(productId)
-        .then((product) => (product ? res.status(201).json({ message: 'Deleted' }) : res.status(404).json({ message: "Not found" })))
-        .catch((error) => res.status(500).json({ error }))
+        .then((product) => product
+            ? res.status(201).json({ message: 'Deleted' })
+            : res.status(404).json({ error: "Not found" }))
+        .catch((error) => next(error))
 }
 
 export default { createProduct, readProduct, readAllProduct, updateProduct, deleteProduct }

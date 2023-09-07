@@ -12,38 +12,44 @@ const createComment = async (req: Request, res: Response, next: NextFunction) =>
 
     return await comment
         .save()
-        .then((comment) => res.status(201).json({ comment }))
-        .catch((error) => res.status(500).json({ error }))
+        .then((comment) => res.status(201).json({ message: `Created`, data: comment }))
+        .catch((error) => next(error))
 }
 
 const readComment = async (req: Request, res: Response, next: NextFunction) => {
-    const commentId = req.params.commentId
+    const { commentId } = req.params
 
     return await Comment.findById(commentId)
-        .then((comment) => (comment ? res.status(201).json({ comment }) : res.status(404).json({ message: "Not found" })))
-        .catch((error) => res.status(500).json({ error }))
+        .then((comment) => comment
+            ? res.status(201).json({ data: comment })
+            : res.status(404).json({ error: "Not found" }))
+        .catch((error) => next(error))
 }
 
 const readAllComment = async (req: Request, res: Response, next: NextFunction) => {
     return await Comment.find()
-        .then((comments) => res.status(201).json({ comments }))
-        .catch((error) => res.status(500).json({ error }))
+        .then((comments) => res.status(201).json({ data: comments }))
+        .catch((error) => next(error))
 }
 
 const updateComment = async (req: Request, res: Response, next: NextFunction) => {
-    const commentId = req.params.commentId
+    const { commentId } = req.params
 
     return await Comment.findByIdAndUpdate(commentId, req.body)
-        .then((comment) => (comment ? res.status(201).json({ message: 'Updated', data: comment }) : res.status(404).json({ message: "Not found" })))
-        .catch((error) => res.status(500).json({ error }))
+        .then((comment) => comment
+            ? res.status(201).json({ message: 'Updated', data: comment })
+            : res.status(404).json({ error: "Not found" }))
+        .catch((error) => next(error))
 }
 
-const deleteComment = async (req: Request, res: Response, next: NextFunction) => { 
-    const commentId = req.params.commentId
+const deleteComment = async (req: Request, res: Response, next: NextFunction) => {
+    const { commentId } = req.params
 
     return await Comment.findByIdAndDelete(commentId)
-        .then((comment) => (comment ? res.status(201).json({ message: 'Deleted' }) : res.status(404).json({ message: "Not found" })))
-        .catch((error) => res.status(500).json({ error }))
+        .then((comment) => comment
+            ? res.status(201).json({ message: 'Deleted' })
+            : res.status(404).json({ error: "Not found" }))
+        .catch((error) => next(error))
 }
 
 export default { createComment, readComment, readAllComment, updateComment, deleteComment }

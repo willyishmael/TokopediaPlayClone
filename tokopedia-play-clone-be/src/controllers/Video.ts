@@ -12,7 +12,7 @@ const createVideo = async (req: Request, res: Response, next: NextFunction) => {
 
     return await video
         .save()
-        .then((video) => res.status(201).json({ data: video }))
+        .then((video) => res.status(201).json({ message: `Created`, data: video }))
         .catch((error) => next(error))
 }
 
