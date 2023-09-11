@@ -32,6 +32,16 @@ const readAllProduct = async (req: Request, res: Response, next: NextFunction) =
         .catch((error) => next(error))
 }
 
+const readAllProductByVideoId = async (req: Request, res: Response, next: NextFunction) => {
+    const { videoId } = req.params
+
+    return await Product.find({ video: videoId })
+        .then((products) => products
+            ? res.status(201).json({ data: products })
+            : res.status(404).json({ error: `Not found` }))
+        .catch((error) => next(error))
+}
+
 const updateProduct = async (req: Request, res: Response, next: NextFunction) => {
     const { productId } = req.params
 
@@ -52,4 +62,4 @@ const deleteProduct = async (req: Request, res: Response, next: NextFunction) =>
         .catch((error) => next(error))
 }
 
-export default { createProduct, readProduct, readAllProduct, updateProduct, deleteProduct }
+export default { createProduct, readProduct, readAllProduct, readAllProductByVideoId, updateProduct, deleteProduct }

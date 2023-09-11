@@ -5,6 +5,7 @@ const router = express.Router()
 
 router.get('/', controller.readAllProduct)
 router.get('/:productId', controller.readProduct)
+router.get('/vi/:videoId', controller.readAllProductByVideoId)
 router.post('/create', controller.createProduct)
 router.patch('/update/:productId', controller.updateProduct)
 router.delete('/delete/:productId', controller.deleteProduct)
