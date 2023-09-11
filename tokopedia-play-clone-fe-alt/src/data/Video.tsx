@@ -10,6 +10,10 @@ export interface VideoProps {
     video: IVideo;
 }
 
+export interface VideoIdProps {
+    videoId: string
+}
+
 export async function fetchVideos(): Promise<{ data: IVideo[] }> {
     const response = await fetch(`http://localhost:3000/video`);
     if (!response.ok) {
