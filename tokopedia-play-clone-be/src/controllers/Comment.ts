@@ -10,8 +10,7 @@ const createComment = async (req: Request, res: Response, next: NextFunction) =>
         video, username, content
     })
 
-    return await comment
-        .save()
+    return await comment.save()
         .then((comment) => res.status(201).json({ message: `Created`, data: comment }))
         .catch((error) => next(error))
 }
@@ -23,6 +22,16 @@ const readComment = async (req: Request, res: Response, next: NextFunction) => {
         .then((comment) => comment
             ? res.status(201).json({ data: comment })
             : res.status(404).json({ error: "Not found" }))
+        .catch((error) => next(error))
+}
+
+const readAllCommentByVideoId = async (req: Request, res: Response, next: NextFunction) => {
+    const { videoId } = req.params
+
+    return await Comment.find({ video: videoId })
+        .then((comments) => comments
+            ? res.status(201).json({ data: comments })
+            : res.status(404).json({ error: `Not found` }))
         .catch((error) => next(error))
 }
 
@@ -52,4 +61,4 @@ const deleteComment = async (req: Request, res: Response, next: NextFunction) =>
         .catch((error) => next(error))
 }
 
-export default { createComment, readComment, readAllComment, updateComment, deleteComment }
+export default { createComment, readComment, readAllCommentByVideoId, readAllComment, updateComment, deleteComment }
