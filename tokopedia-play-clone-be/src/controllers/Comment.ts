@@ -28,7 +28,7 @@ const readComment = async (req: Request, res: Response, next: NextFunction) => {
 const readAllCommentByVideoId = async (req: Request, res: Response, next: NextFunction) => {
     const { videoId } = req.params
 
-    return await Comment.find({ video: videoId })
+    return await Comment.find({ video: videoId }).sort({ createdAt: -1 })
         .then((comments) => comments
             ? res.status(201).json({ data: comments })
             : res.status(404).json({ error: `Not found` }))
