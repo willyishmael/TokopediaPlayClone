@@ -18,13 +18,16 @@ export default function Home() {
     useEffect(() => { fetchData() }, [])
 
     return (
-        <div className="container mx-auto p-4">
-            <h1 className="mb-4">Home</h1>
-            <div className="grid grid-cols-3 gap-8"> {
-                videos?.data.map(video => (
-                    <VideoCard key={video._id} video={video} />
-                ))
-            } </div>
+        <div className="bg-indigo-950 p-4 mx-16 mb-4">
+            <p className="text-xl underline decoration-lime-500 decoration-2 decoration-wavy italic mb-4">Comments</p>
+            <div className="grid grid-cols-3 gap-8 m-4">
+                {
+                    videos?.data.map(video => (
+                        <VideoCard key={video._id} video={video} />
+                    ))
+                }
+            </div>
         </div>
+
     )
 }

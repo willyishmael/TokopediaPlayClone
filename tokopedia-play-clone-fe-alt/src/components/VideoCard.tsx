@@ -8,11 +8,9 @@ export default function VideoCard({ video }: VideoProps) {
     }
 
     return (
-        <div className="bg-teal-dark max-w-sm rounded-lg overflow-hidden shadow-xl" onClick={ () => navigateToDetail(video._id) }>
-            <div className="bg-teal-dark rounded-full p-4">
-                <img src={video.thumbnail_url} alt="" className="w-full" />
-            </div>
-            <p className="text-lime-500 text-md text-bold px-4 pb-4">{video.title}</p>
+        <div className="bg-blue-950 rounded-xl overflow-hidden shadow-xl" onClick={() => navigateToDetail(video._id)}>
+            <img src={video.thumbnail_url} alt="" className="w-full aspect-video object-cover" />
+            <p className="text-md font-semibold p-4">{video.title}</p>
         </div>
     )
 }
