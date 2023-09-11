@@ -63,7 +63,7 @@ export function CommentSection({ videoId }: VideoIdProps) {
     }, [videoId])
 
     return (
-        <div className="bg-indigo-950 rounded-xl p-4 bold">
+        <div className="bg-indigo-950 rounded-xl p-4 mb-4">
             <p className="text-xl underline decoration-lime-500 decoration-2 decoration-wavy italic">Comments</p>
             <div className="m-4">
                 <p className="text-sm underline decoration-orange-600 decoration-4 mb-2">Username</p>
