@@ -33,6 +33,7 @@ Endpoints for Video:
 
 Endpoints for Product:
 - GET all product `/product`
+- GET all products by video Id `/product/vi/:videoId`
 - GET product by Id `/product/:productId`
 - POST new product `/product/create` with a body `{ video: string, title: string, image_url: string, price: number }`
 - PATCH update product `/product/update/:productId` with a body `{ video: string, title: string, image_url: string, price: number }`
@@ -40,6 +41,7 @@ Endpoints for Product:
 
 Endpoints for Comment:
 - GET all comment `/comment`
+- GET all comments by video Id `/comment/vi/:videoId`
 - GET comment by Id `/comment/:commentId`
 - POST new comment `/comment/create` with a body `{ video: string, username: string, content: string }`
 - PATCH update comment `/comment/update/:commentId` with a body `{ video: string, username: string, content: string }`
